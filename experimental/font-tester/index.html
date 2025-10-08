@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tester de Tipografías</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      id="dynamic-font"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+    <style>
+      :root {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: #f3f4f6;
+        color: #111827;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #f7f7fb 0%, #f2f3f6 45%, #f6f6f8 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .layout {
+        width: min(1100px, 92vw);
+        margin: 0 auto 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      header {
+        padding: 2.5rem 0 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .brand-mark {
+        display: inline-grid;
+        grid-template-columns: repeat(3, 18px);
+        grid-auto-rows: 18px;
+        gap: 4px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+      }
+
+      .brand-mark span {
+        display: block;
+        border-radius: 6px;
+      }
+
+      .brand-mark span:nth-child(1) {
+        background: linear-gradient(140deg, #ffd644, #ff8a00);
+      }
+
+      .brand-mark span:nth-child(2) {
+        background: linear-gradient(140deg, #8ef0ff, #3bc4ff);
+      }
+
+      .brand-mark span:nth-child(3) {
+        background: linear-gradient(140deg, #ff8ef2, #d350ff);
+      }
+
+      .brand-mark span:nth-child(4) {
+        background: linear-gradient(140deg, #a7ff70, #53d330);
+      }
+
+      .brand-mark span:nth-child(5) {
+        background: linear-gradient(140deg, #ffe37b, #ffb347);
+      }
+
+      .brand-mark span:nth-child(6) {
+        background: linear-gradient(140deg, #94a7ff, #5561ff);
+      }
+
+      .brand-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .hero p {
+        margin: 0;
+        font-size: clamp(1.8rem, 2.6vw + 1.2rem, 2.8rem);
+        line-height: 1.3;
+        font-weight: 500;
+        color: #101828;
+      }
+
+      .tester-card {
+        background: #ffffff;
+        border-radius: 32px;
+        padding: clamp(2rem, 3vw, 3rem);
+        box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(1.75rem, 3vw, 2.5rem);
+      }
+
+      .preview-surface {
+        border-radius: 26px;
+        background: #f9fafb;
+        border: 1px solid rgba(17, 24, 39, 0.05);
+        padding: clamp(2rem, 3vw, 3rem);
+        min-height: 230px;
+        position: relative;
+      }
+
+      .preview-text {
+        margin: 0;
+        font-size: 48px;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: 0px;
+        color: inherit;
+        outline: none;
+      }
+
+      .preview-text:focus-visible {
+        box-shadow: inset 0 0 0 2px rgba(79, 70, 229, 0.3);
+        border-radius: 12px;
+        padding: 0.4rem;
+        margin: -0.4rem;
+      }
+
+      .preview-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(1rem, 2vw, 1.5rem);
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+
+      .control-group label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #a0a3ad;
+      }
+
+      .pill-row {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .pill-row button {
+        border: none;
+        border-radius: 999px;
+        padding: 0.55rem 1.4rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: #f0f2f8;
+        color: #1f2937;
+        transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .pill-row button:hover {
+        transform: translateY(-1px);
+      }
+
+      .pill-row button.active {
+        background: #111827;
+        color: #ffffff;
+        box-shadow: 0 14px 35px rgba(17, 24, 39, 0.25);
+      }
+
+      .sliders {
+        display: grid;
+        gap: 1.25rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .slider {
+        background: #f3f4f8;
+        border-radius: 18px;
+        padding: 1rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .slider-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .slider-track {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .slider-track span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(17, 24, 39, 0.08);
+        color: #1f2937;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+
+      .slider input[type="range"] {
+        flex: 1 1 auto;
+        accent-color: #111827;
+        height: 4px;
+      }
+
+      .slider-value {
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+
+      .text-editor {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .text-editor label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-weight: 600;
+        color: #a0a3ad;
+      }
+
+      .text-editor textarea {
+        width: 100%;
+        min-height: 110px;
+        padding: 1rem 1.25rem;
+        border-radius: 18px;
+        border: 1px solid rgba(17, 24, 39, 0.08);
+        background: #f9fafc;
+        font-size: 1rem;
+        line-height: 1.6;
+        resize: vertical;
+        color: #111827;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .text-editor textarea:focus {
+        outline: none;
+        border-color: rgba(79, 70, 229, 0.35);
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+      }
+
+      footer {
+        margin: auto auto 3rem;
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+
+      @media (max-width: 720px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+        }
+
+        .preview-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <header>
+        <a class="brand" href="#" aria-label="Gaspaer Muñoz">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="brand-name">Gaspaer Muñoz</span>
+        </a>
+      </header>
+
+      <section class="hero" aria-labelledby="intro-title">
+        <p id="intro-title">
+          Hola! Soy Gaspaer Muñoz. Soy diseñador tipográfico y diseñador gráfico. En este
+          portafolio puedes explorar y probar todas las tipografías que he creado, cada una con
+          su propio carácter y estilo.
+        </p>
+      </section>
+
+      <section class="tester-card" aria-label="Tester tipográfico interactivo">
+        <div class="preview-surface" aria-live="polite">
+          <p
+            id="preview-text"
+            class="preview-text"
+            contenteditable="true"
+            spellcheck="false"
+            role="textbox"
+            aria-label="Texto de vista previa editable"
+          >
+            Hola! Soy Gaspaer Muñoz. Soy diseñador tipográfico y diseñador gráfico. En este
+            portafolio puedes explorar y probar todas las tipografías que he creado, cada una con
+            su propio carácter y estilo.
+          </p>
+        </div>
+
+        <div class="preview-actions">
+          <div class="control-group">
+            <label for="font-family-group">Familia</label>
+            <div class="pill-row" id="font-family-group" role="listbox"></div>
+          </div>
+          <div class="control-group">
+            <label for="font-variant-group">Variante</label>
+            <div class="pill-row" id="font-variant-group" role="listbox"></div>
+          </div>
+        </div>
+
+        <div class="sliders">
+          <div class="slider">
+            <div class="slider-header">
+              <span>Tamaño</span>
+              <span class="slider-value" id="font-size-value">48 px</span>
+            </div>
+            <div class="slider-track">
+              <span aria-hidden="true">A</span>
+              <input type="range" id="font-size" min="16" max="120" value="48" />
+              <span aria-hidden="true" style="font-size: 1.2rem">A</span>
+            </div>
+          </div>
+
+          <div class="slider">
+            <div class="slider-header">
+              <span>Interlineado</span>
+              <span class="slider-value" id="line-height-value">1.4</span>
+            </div>
+            <div class="slider-track">
+              <span aria-hidden="true" style="font-size: 0.85rem; font-weight: 500">≋</span>
+              <input type="range" id="line-height" min="1" max="2" step="0.05" value="1.4" />
+              <span aria-hidden="true" style="font-size: 1.25rem; font-weight: 500">≋</span>
+            </div>
+          </div>
+
+          <div class="slider">
+            <div class="slider-header">
+              <span>Tracking</span>
+              <span class="slider-value" id="letter-spacing-value">0 px</span>
+            </div>
+            <div class="slider-track">
+              <span aria-hidden="true" style="font-weight: 600">–</span>
+              <input type="range" id="letter-spacing" min="-5" max="20" value="0" />
+              <span aria-hidden="true" style="font-weight: 600">+</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-editor">
+          <label for="custom-text">Editar texto</label>
+          <textarea id="custom-text" name="custom-text">
+Hola! Soy Gaspaer Muñoz. Soy diseñador tipográfico y diseñador gráfico. En este portafolio puedes explorar y probar todas las tipografías que he creado, cada una con su propio carácter y estilo.
+          </textarea>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Consejo: Combina pesos y estilos para construir la voz visual de tus proyectos.
+    </footer>
+
+    <script>
+      const fontFamilies = [
+        {
+          name: "Herokid",
+          google: "Heebo",
+          variants: [
+            { label: "Light", style: "normal", weight: 300 },
+            { label: "Regular", style: "normal", weight: 400 },
+            { label: "Medium", style: "normal", weight: 500 },
+            { label: "SemiBold", style: "normal", weight: 600 },
+            { label: "Bold", style: "normal", weight: 700 }
+          ]
+        },
+        {
+          name: "Heavy Condensed",
+          google: "Bebas+Neue",
+          variants: [{ label: "Regular", style: "normal", weight: 400 }]
+        },
+        {
+          name: "Space Grotesk",
+          google: "Space+Grotesk",
+          variants: [
+            { label: "Light", style: "normal", weight: 300 },
+            { label: "Regular", style: "normal", weight: 400 },
+            { label: "Medium", style: "normal", weight: 500 },
+            { label: "SemiBold", style: "normal", weight: 600 },
+            { label: "Bold", style: "normal", weight: 700 }
+          ]
+        },
+        {
+          name: "Merriweather",
+          google: "Merriweather",
+          variants: [
+            { label: "Light", style: "normal", weight: 300 },
+            { label: "Regular", style: "normal", weight: 400 },
+            { label: "Bold", style: "normal", weight: 700 },
+            { label: "Black", style: "normal", weight: 900 },
+            { label: "Light Italic", style: "italic", weight: 300 },
+            { label: "Italic", style: "italic", weight: 400 },
+            { label: "Bold Italic", style: "italic", weight: 700 },
+            { label: "Black Italic", style: "italic", weight: 900 }
+          ]
+        },
+        {
+          name: "Inter",
+          google: "Inter",
+          variants: [
+            { label: "Regular", style: "normal", weight: 400 },
+            { label: "Medium", style: "normal", weight: 500 },
+            { label: "SemiBold", style: "normal", weight: 600 },
+            { label: "Bold", style: "normal", weight: 700 },
+            { label: "Black", style: "normal", weight: 900 }
+          ]
+        }
+      ];
+
+      const familyGroup = document.querySelector("#font-family-group");
+      const variantGroup = document.querySelector("#font-variant-group");
+      const previewText = document.querySelector("#preview-text");
+      const customTextArea = document.querySelector("#custom-text");
+      const fontSizeSlider = document.querySelector("#font-size");
+      const fontSizeValue = document.querySelector("#font-size-value");
+      const lineHeightSlider = document.querySelector("#line-height");
+      const lineHeightValue = document.querySelector("#line-height-value");
+      const letterSpacingSlider = document.querySelector("#letter-spacing");
+      const letterSpacingValue = document.querySelector("#letter-spacing-value");
+      const dynamicFontLink = document.querySelector("#dynamic-font");
+
+      let activeFamily = null;
+      let activeVariant = null;
+
+      function loadFont(family) {
+        const weights = Array.from(
+          new Set(family.variants.map((variant) => `${variant.style === "italic" ? "1" : "0"},${variant.weight}`))
+        );
+        const href = `https://fonts.googleapis.com/css2?family=${family.google}:ital,wght@${weights.join(";")}&display=swap`;
+        dynamicFontLink.href = href;
+      }
+
+      function setActiveButton(container, button) {
+        container.querySelectorAll("button").forEach((btn) => {
+          const isActive = btn === button;
+          btn.classList.toggle("active", isActive);
+          if (btn.hasAttribute("aria-pressed")) {
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+          }
+          if (btn.hasAttribute("aria-selected")) {
+            btn.setAttribute("aria-selected", isActive ? "true" : "false");
+          }
+        });
+      }
+
+      function applyVariant(variantButton) {
+        if (!variantButton) return;
+        activeVariant = {
+          style: variantButton.dataset.style,
+          weight: variantButton.dataset.weight
+        };
+        previewText.style.fontStyle = activeVariant.style;
+        previewText.style.fontWeight = activeVariant.weight;
+        previewText.style.fontFamily = `'${activeFamily.name}', 'Inter', system-ui, sans-serif`;
+      }
+
+      function renderVariants(family) {
+        variantGroup.innerHTML = "";
+        const fragment = document.createDocumentFragment();
+        family.variants.forEach((variant, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = `${variant.label}${variant.style === "italic" ? " Italic" : ""}`;
+          button.dataset.style = variant.style;
+          button.dataset.weight = variant.weight;
+          button.setAttribute("role", "option");
+          button.setAttribute("aria-selected", "false");
+          button.addEventListener("click", () => {
+            setActiveButton(variantGroup, button);
+            applyVariant(button);
+          });
+          if (index === 0) {
+            activeVariant = variant;
+          }
+          fragment.appendChild(button);
+        });
+        variantGroup.appendChild(fragment);
+        const firstButton = variantGroup.querySelector("button");
+        if (firstButton) {
+          setActiveButton(variantGroup, firstButton);
+          applyVariant(firstButton);
+        }
+      }
+
+      function renderFamilies() {
+        const fragment = document.createDocumentFragment();
+        fontFamilies.forEach((family, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = family.name;
+          button.dataset.family = family.name;
+          button.setAttribute("role", "option");
+          button.setAttribute("aria-pressed", "false");
+          button.setAttribute("aria-selected", "false");
+          button.addEventListener("click", () => {
+            if (activeFamily && activeFamily.name === family.name) return;
+            activeFamily = family;
+            loadFont(family);
+            setActiveButton(familyGroup, button);
+            renderVariants(family);
+          });
+          if (index === 0) {
+            activeFamily = family;
+          }
+          fragment.appendChild(button);
+        });
+        familyGroup.appendChild(fragment);
+        const firstButton = familyGroup.querySelector("button");
+        if (firstButton) {
+          setActiveButton(familyGroup, firstButton);
+          loadFont(activeFamily);
+          renderVariants(activeFamily);
+        }
+      }
+
+      function syncPreviewText() {
+        const value = customTextArea.value.trim();
+        if (value.length === 0) {
+          previewText.textContent =
+            "Hola! Soy Gaspaer Muñoz. Soy diseñador tipográfico y diseñador gráfico. En este portafolio puedes explorar y probar todas las tipografías que he creado, cada una con su propio carácter y estilo.";
+        } else {
+          previewText.textContent = value;
+        }
+      }
+
+      function updateSliderValue(slider, output, suffix = "") {
+        output.textContent = `${slider.value}${suffix}`;
+      }
+
+      function applySliderStyles() {
+        previewText.style.fontSize = `${fontSizeSlider.value}px`;
+        previewText.style.lineHeight = lineHeightSlider.value;
+        previewText.style.letterSpacing = `${letterSpacingSlider.value}px`;
+      }
+
+      customTextArea.addEventListener("input", () => {
+        syncPreviewText();
+      });
+
+      previewText.addEventListener("input", () => {
+        customTextArea.value = previewText.textContent;
+      });
+
+      fontSizeSlider.addEventListener("input", () => {
+        updateSliderValue(fontSizeSlider, fontSizeValue, " px");
+        applySliderStyles();
+      });
+
+      lineHeightSlider.addEventListener("input", () => {
+        updateSliderValue(lineHeightSlider, lineHeightValue);
+        applySliderStyles();
+      });
+
+      letterSpacingSlider.addEventListener("input", () => {
+        updateSliderValue(letterSpacingSlider, letterSpacingValue, " px");
+        applySliderStyles();
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderFamilies();
+        updateSliderValue(fontSizeSlider, fontSizeValue, " px");
+        updateSliderValue(lineHeightSlider, lineHeightValue);
+        updateSliderValue(letterSpacingSlider, letterSpacingValue, " px");
+        applySliderStyles();
+        syncPreviewText();
+      });
+    </script>
+  </body>
+</html>
